@@ -1,0 +1,17 @@
+require:
+  - standard
+  - rubocop-rspec
+
+inherit_gem:
+  standard: config/base.yml
+
+AllCops:
+  TargetRubyVersion: 3.0.3
+  NewCops: enable
+
+Style/RedundantReturn:
+  Exclude:
+    - app/controllers/**/*
+
+RSpec/FilePath:
+  Enabled: false # bug

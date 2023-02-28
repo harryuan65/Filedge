@@ -13,6 +13,7 @@
     <div class="field mt-4">
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full h-11 border border-border" %>
     </div>
+    <%= render "users/shared/error_messages" %>
     <div class="actions">
       <%= f.submit "SIGN UP", class: "cursor-pointer hover:opacity-80 mt-4 w-full h-11 text-white bg-accent block" %>
     </div>

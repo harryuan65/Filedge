@@ -13,11 +13,11 @@
         <%= f.label :remember_me %>
       </div>
     <% end %>
-    <p class="h-10 border-solid p-2 text-center text-red-600">
-      <% if alert %>
+    <% if alert %>
+      <p class="min-h-[40px] bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 text-center">
         <%= alert %>
-      <% end %>
-    </p>
+      </p>
+    <% end %>
     <div class="actions">
       <%= f.submit "SIGN IN", class: "cursor-pointer hover:opacity-80 mt-4 w-full h-11 text-white bg-accent block" %>
     </div>

@@ -12,18 +12,19 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_02_28_095345) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "sharing_links", primary_key: "digest", id: :string, force: :cascade do |t|
-    t.bigint "user_file_id", null: false
+    t.uuid "user_file_id", null: false
     t.datetime "expire_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_file_id"], name: "index_sharing_links_on_user_file_id"
   end
 
-  create_table "user_files", force: :cascade do |t|
-    t.bigint "user_id", null: false
+  create_table "user_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
     t.string "asset", null: false
     t.integer "file_size", default: 0, null: false
     t.datetime "created_at", null: false
@@ -31,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_095345) do
     t.index ["user_id"], name: "index_user_files_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

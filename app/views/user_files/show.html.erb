@@ -1,15 +1,26 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @user_file %>
-
-    <%= link_to 'Edit this user_file', edit_user_file_path(@user_file), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this user_file', user_file_path(@user_file), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to user_files', user_files_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+  <%= link_to "← Back to files", user_files_path, class: "text-black hover:underline text-left" %>
+  <div class="flex justify-between items-center mt-5">
+    <h1 class="text-4xl text-black">File: <%= @user_file.asset.identifier %></h1>
+    <%= link_to "Download ↓", download_user_file_path(@user_file), class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer" %>
   </div>
+  <table id="user_files" class="min-w-full mt-4">
+    <thead>
+      <tr class="bg-accent text-white">
+        <th class="px-4 py-4 font-normal text-left">Size</th>
+        <th class="px-4 py-4 font-normal text-left">Uploaded At</th>
+        <th class="px-4 py-4 font-normal text-left">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="h-10 border-b border-gray-300 ">
+        <td class="px-4"><%= @user_file.file_size %></td>
+        <td class="px-4"><%= @user_file.created_at.strftime("%b %d, %Y") %></td>
+        <td class="px-4"><%= button_to "🗑", user_file_path(@user_file), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "hover:underline" %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

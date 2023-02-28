@@ -7,7 +7,9 @@ class UserFilesController < ApplicationController
 
   # GET /user_files or /user_files.json
   def index
-    @user_files = current_user.files.all
+    files = current_user.files
+    @user_files = files.all
+    @user_file = files.new
   end
 
   # GET /user_files/1 or /user_files/1.json

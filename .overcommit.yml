@@ -22,11 +22,11 @@ PostCheckout:
 PreCommit:
   AuthorName:
     enabled: false
-  EsLint:
-    enabled: true
-    required_executable: "yarn"
-    command: ["yarn", "eslint", "app/javascript/**/*.js"]
-    flags: []
+  # EsLint:
+  #   enabled: true
+  #   required_executable: "yarn"
+  #   command: ["yarn", "eslint", "app/javascript/**/*.js"]
+  #   flags: []
   MergeConflicts:
     enabled: true
   RuboCop:

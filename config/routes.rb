@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  root "user_files#index"
   resources :user_files do
     resources :sharing_links, shallow: true, path: "share"
   end
   devise_for :users, controllers: {
-    sessions: "users/sessions"
+    sessions: "users/sessions",
+    registrations: "users/registrations"
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

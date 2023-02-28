@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  models:
+    user_files:
+      created: User file was successfully created.
+      updated: User file was successfully updated.
+      destroyed: User file was successfully destroyed.

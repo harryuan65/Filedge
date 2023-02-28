@@ -28,7 +28,7 @@ class UserFilesController < ApplicationController
     @user_file = current_user.files.new(asset: user_file_params[:asset])
 
     if @user_file.save
-      redirect_to user_file_url(@user_file), notice: "User file was successfully created."
+      redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class UserFilesController < ApplicationController
   # PATCH/PUT /user_files/1 or /user_files/1.json
   def update
     if @user_file.update(user_file_params)
-      redirect_to user_file_url(@user_file), notice: "User file was successfully updated."
+      redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -46,14 +46,14 @@ class UserFilesController < ApplicationController
   # DELETE /user_files/1 or /user_files/1.json
   def destroy
     @user_file.destroy
-    redirect_to user_files_url, notice: "User file was successfully destroyed."
+    redirect_to user_files_url, notice: I18n.t("models.user_files.destroyed")
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user_file
-    @user_file = UserFile.find(params[:id])
+    @user_file = current_user.files.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

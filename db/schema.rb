@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_083411) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_095345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sharing_links", primary_key: "digest", id: :string, force: :cascade do |t|
+    t.bigint "user_file_id", null: false
+    t.datetime "expire_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_file_id"], name: "index_sharing_links_on_user_file_id"
+  end
 
   create_table "user_files", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -35,5 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_083411) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "sharing_links", "user_files"
   add_foreign_key "user_files", "users"
 end

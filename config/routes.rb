@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :user_files
+  resources :user_files do
+    resources :sharing_links, shallow: true, path: "share"
+  end
   devise_for :users, controllers: {
     sessions: "users/sessions"
   }

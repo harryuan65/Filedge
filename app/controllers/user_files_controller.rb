@@ -3,7 +3,7 @@
 #
 class UserFilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user_file, only: %i[show edit update destroy]
+  before_action :set_user_file, only: %i[show edit update destroy download]
 
   # GET /user_files or /user_files.json
   def index
@@ -14,9 +14,9 @@ class UserFilesController < ApplicationController
   def show
   end
 
-  # GET /user_files/new
-  def new
-    @user_file = current_user.files.new
+  def download
+    asset = @user_file.asset
+    send_file asset.path, type: asset.file.content_type
   end
 
   # GET /user_files/1/edit
@@ -30,7 +30,7 @@ class UserFilesController < ApplicationController
     if @user_file.save
       redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.created")
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 

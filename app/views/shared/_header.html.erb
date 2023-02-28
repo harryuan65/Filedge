@@ -1,3 +1,11 @@
-<% if current_user %>
-  Hello, <%= current_user.email.split("@").first %> !
-<% end %>
+<nav class="border border-b-border relative h-20 flex justify-between items-center px-8">
+  <%= link_to image_tag("fridge.svg", class: "inline-block w-6"), root_path, class: "" %>
+  <% if current_user %>
+    <div class="info flex items-center">
+      <span class="relative mr-4"> Hello, <%= current_user.email.split("@").first %> !</span>
+      <%= button_to "Sign Out", destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: "Are you sure?", controller: "refresh" } }, class: "rounded-lg bg-accent text-lg outline-none text-white py-3 px-4" %>
+    </div>
+  <% else %>
+    <%= link_to 'Sign In', new_user_session_path, class: "text-lg relative mr-4" %>
+  <% end %>
+</nav>

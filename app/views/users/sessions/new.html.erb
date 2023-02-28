@@ -1,22 +1,26 @@
-<h2>Log in</h2>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <%= render "shared/flash" %>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="sign-in-form mx-auto my-auto w-80 flex flex-col items-center">
+  <h2 class="text-4xl font-bold">Filedge</h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "w-full" }) do |f| %>
+    <div class="field mt-4">
+      <%= f.email_field :email, autofocus: true, placeholder:"user@email.com", autocomplete: "email", class: "w-full h-11 border border-border" %>
+    </div>
+    <div class="field mt-4">
+      <%= f.password_field :password, placeholder: "password", autocomplete: "current-password", class: "w-full h-11 border border-border" %>
+    </div>
+    <% if devise_mapping.rememberable? %>
+      <div class="field mt-4">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+    <p class="h-10 border-solid p-2 text-center text-red-600">
+      <% if alert %>
+        <%= alert %>
+      <% end %>
+    </p>
+    <div class="actions">
+      <%= f.submit "SIGN IN", class: "cursor-pointer hover:opacity-80 mt-4 w-full h-11 text-white bg-accent block" %>
     </div>
   <% end %>
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-<%= render "users/shared/links" %>
+  <%= render "users/shared/links" %>
+</div>

@@ -1,0 +1,23 @@
+version: "3"
+services:
+  web:
+    build: .
+    volumes:
+      - ./app:/app/app
+      - ./config:/app/config
+    environment:
+      RAILS_ENV: development
+      PG_HOST: postgres
+      PG_USERNAME: postgres
+      PG_PASSWORD: postgres
+    links:
+      - postgres
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14.4-alpine
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

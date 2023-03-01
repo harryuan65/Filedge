@@ -1,1 +1,2 @@
 <%= turbo_stream.replace(@progress_bar_id, partial: "user_files/user_file", locals: {user_file: @user_file}) %>
+<%= turbo_stream.replace("flash", partial: "shared/flash") %>

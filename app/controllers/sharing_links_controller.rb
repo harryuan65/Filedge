@@ -22,8 +22,8 @@ class SharingLinksController < ApplicationController
     link = SharingLink.find_by(user_file_id: @user_file.id)
 
     new_expire_at = 30.days.from_now
-    if link&.expired?
-      link.update(expire_at: new_expire_at)
+    if link
+      link.update(expire_at: new_expire_at) if link.expired?
     else
       link = SharingLink.create!(user_file: @user_file, expire_at: new_expire_at)
     end

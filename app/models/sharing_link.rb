@@ -8,4 +8,8 @@ class SharingLink < ApplicationRecord
   def generate_digest
     self.digest = Digest::SHA256.hexdigest("#{Time.now.to_i}#{Process.pid}#{Thread.current.object_id}#{user_file_id}")
   end
+
+  def expired?
+    expire_at < Time.zone.now
+  end
 end

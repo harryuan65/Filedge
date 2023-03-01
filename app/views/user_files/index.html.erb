@@ -12,7 +12,10 @@
         <th class="px-4 py-4 font-normal text-left">Name</th>
         <th class="px-4 py-4 font-normal text-left">Size</th>
         <th class="px-4 py-4 font-normal text-left">Uploaded At</th>
-        <th class="px-4 py-4 font-normal text-left">Download</th>
+        <% if params[:controller] == "user_files" %>
+          <th class="px-4 py-4 font-normal text-left">Download</th>
+        <% end %>
+        <th class="px-4 py-4 font-normal text-left">Share</th>
         <th class="px-4 py-4 font-normal text-left">Delete</th>
       </tr>
     </thead>
@@ -23,12 +26,15 @@
         </tr>
       <% end %>
       <% @user_files.each do |file| %>
-        <tr class="h-10 border-b border-gray-300 ">
+        <tr id="<%= file.id %>" class="h-10 border-b border-gray-300" data-controller="sharing-link">
           <td class="px-4"><%= link_to file.asset.identifier, user_file_path(file), class: "hover:underline" %></td>
           <td class="px-4"><%= file.file_size %></td>
           <td class="px-4"><%= file.created_at.strftime("%b %d, %Y") %></td>
           <td class="px-4"><%= link_to "Download ↓", download_user_file_path(file), class: "hover:underline" %></td>
-          <td class="px-4"><%= button_to "🗑", user_file_path(file), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "hover:underline" %></td>
+          <td class="px-4"><span data-action="click->sharing-link#getLink" class="hover:underline cursor-pointer">Get Link</span></td>
+          <% if params[:controller] == "user_files" %>
+            <td class="px-4"><%= button_to "🗑", user_file_path(file), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "hover:underline" %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

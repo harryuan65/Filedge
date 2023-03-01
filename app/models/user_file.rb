@@ -3,7 +3,7 @@
 #
 class UserFile < ApplicationRecord
   belongs_to :user
-  belongs_to :sharing_link, optional: true
+  has_one :sharing_link, dependent: :destroy
   mount_uploader :asset, UserFileUploader
 
   after_create :set_file_size

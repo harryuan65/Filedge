@@ -131,17 +131,17 @@ RSpec.describe "/user_files" do
     context "with other users" do
       before do
         sign_in(user2)
-        user_file # trigger creation
       end
 
-      pending "RSpec cannot catch request level exception. Need to catch NotFound and render a custom page"
-      # it "does not destroy the requested user_file" do
-      #   expect { delete_request }.not_to change(UserFile, :count)
-      # end
+      it "renders a not found response" do
+        delete_request
+        expect(response).to have_http_status(:not_found)
+      end
 
-      # it "raises a not found exception" do
-      #   expect { delete_request }.to raise_error(ActiveRecord::RecordNotFound, "Couldn't find UserFile")
-      # end
+      it "does not destroy the requested user_file" do
+        user_file # trigger creation first
+        expect { delete_request }.not_to change(UserFile, :count)
+      end
     end
   end
 end

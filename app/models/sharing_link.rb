@@ -6,7 +6,7 @@ class SharingLink < ApplicationRecord
   before_create :generate_digest
 
   def generate_digest
-    self.digest = Digest::SHA256.hexdigest("#{Time.now.to_i}#{Process.pid}#{Thread.current.object_id}#{user_file_id}")
+    self.digest = Digest::SHA256.hexdigest(user_file_id)
   end
 
   def expired?

@@ -1,24 +1,33 @@
-# README
+# Filedge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple file-sharing application.
 
-Things you may want to cover:
+# Environment
 
-* Ruby version
+| env             | version |
+| --------------- | ------- |
+| rails           | 7.0.4.2 |
+| ruby            | 3.0.3   |
+| PostgreSQL 14.4 | 1.22.19 |
 
-* System dependencies
+# Setup - Local
 
-* Configuration
+## 1. Install dependencies
 
-* Database creation
+```bash
+bin/setup
+```
 
-* Database initialization
+## 2. Start the application
 
-* How to run the test suite
+```
+bin/dev
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Then visit `http://localhost:3000` to access the app.
 
-* Deployment instructions
+# Setup - Docker
 
-* ...
+```
+docker compose up
+```

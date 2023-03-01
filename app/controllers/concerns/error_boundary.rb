@@ -18,7 +18,7 @@ module ErrorBoundary
   private
 
   def not_found_handler(_exception)
-    render "shared/not_found"
+    render "shared/not_found", status: :not_found
   end
 
   def record_invalid_handler(exception)
@@ -36,6 +36,6 @@ module ErrorBoundary
     logger.warn error_message
     @status = status
     @error_message = error_message
-    redirect_to root_path, alert: "Error: #{error_message}"
+    redirect_to root_path, alert: "Error: #{error_message}", status: status
   end
 end

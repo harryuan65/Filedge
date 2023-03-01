@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
 
   def not_found
     flash.clear
-    render "shared/not_found"
+    render "shared/not_found", status: :not_found
   end
 end

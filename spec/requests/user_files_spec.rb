@@ -53,11 +53,13 @@ RSpec.describe "/user_files" do
 
   describe "GET /download" do
     subject(:download_request) do
-      sign_in(user)
-      get download_user_file_path(user_file)
+      get download_user_file_url(user_file)
     end
 
-    before { download_request }
+    before do
+      sign_in(user)
+      download_request
+    end
 
     it "renders a successful response" do
       expect(response).to be_successful

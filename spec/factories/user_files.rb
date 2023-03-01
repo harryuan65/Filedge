@@ -5,5 +5,9 @@ FactoryBot.define do
     trait :with_link do
       association :sharing_link
     end
+
+    trait :with_user do
+      association :user
+    end
   end
 end

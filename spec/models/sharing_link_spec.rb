@@ -1,3 +1,7 @@
 RSpec.describe SharingLink do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to belong_to(:user_file) }
+
+  it "is invalid without a user_file" do
+    expect(described_class.new).not_to be_valid
+  end
 end

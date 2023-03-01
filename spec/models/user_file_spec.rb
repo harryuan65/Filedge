@@ -1,3 +1,20 @@
 RSpec.describe UserFile do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:valid_user_file) { create(:user_file, :with_user) }
+
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to have_one(:sharing_link) }
+
+  it "is valid with both user and asset" do
+    expect(valid_user_file).to be_valid
+  end
+
+  it "is invalid without a user" do
+    valid_user_file.user = nil
+    expect(valid_user_file).not_to be_valid
+  end
+
+  it "is invalid without an asset" do
+    valid_user_file.asset = nil
+    expect(valid_user_file).not_to be_valid
+  end
 end

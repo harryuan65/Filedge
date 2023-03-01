@@ -6,10 +6,6 @@ RSpec.describe UserFilesController do
       expect(get: "/user_files").to route_to("user_files#index")
     end
 
-    it "routes to #new" do
-      expect(get: "/user_files/new").to route_to("user_files#new")
-    end
-
     it "routes to #show" do
       expect(get: "/user_files/1").to route_to("user_files#show", id: "1")
     end

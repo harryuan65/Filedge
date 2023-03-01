@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(user_file) %>" class="h-10 border-b border-gray-300" data-controller="sharing-link" data-id="<%= user_file.id %>">
   <td class="px-4"><%= link_to user_file.asset.identifier, user_file_path(user_file), class: "hover:underline" %></td>
-  <td class="px-4"><%= user_file.file_size %></td>
+  <td class="px-4"><%= number_to_human_size(user_file.file_size, precision: 2) %></td>
   <td class="px-4"><%= user_file.created_at.strftime("%b %d, %Y") %></td>
   <td class="px-4"><%= link_to "Download ↓", download_user_file_path(user_file), class: "hover:underline" %></td>
   <td class="px-4"><span data-action="click->sharing-link#getLink" class="hover:underline cursor-pointer">Get Link</span></td>

@@ -11,6 +11,6 @@
   <% end %>
   <%= form.file_field :asset, class: "invisible", data: {"upload-target": "file", action: "change->upload#upload"} %>
   <div class="inline">
-    <%= button_tag "+ Upload File", data: { action: "click->upload#openDialog" } , class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer""+ Upload File", class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer" %>
+    <%= button_tag "+ Upload File", data: { action: "click->upload#openDialog" } , class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

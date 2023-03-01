@@ -3,56 +3,46 @@
 #
 class UserFilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user_file, only: %i[show edit update destroy download]
+  before_action :set_user_file, only: %i[show destroy download]
 
-  # GET /user_files or /user_files.json
+  # GET /user_files
   def index
     files = current_user.files
     @user_files = files.all
     @user_file = files.new
   end
 
-  # GET /user_files/1 or /user_files/1.json
+  # GET /user_files/1
   def show
   end
 
   def download
     asset = @user_file.asset
-    send_file asset.path, type: asset.file.content_type
+    send_file asset.path, type: asset.content_type
   end
 
-  # GET /user_files/1/edit
-  def edit
-  end
-
-  # POST /user_files or /user_files.json
-  # :reek:U
+  # POST /user_files [Turbo Stream]
+  # Create a UserFile.
+  # This is called from stimulus upload_controller after the file field is changed.
   def create
     @user_file = current_user.files.new(asset: user_file_params[:asset], file_size: user_file_params[:file_size])
 
-    if @user_file.save
-      respond_to do |format|
-        format.turbo_stream { @progress_bar_id = progress_bar_id }
-        format.html { redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.created") }
+    respond_to do |format|
+      format.turbo_stream do
+        if @user_file.save
+          @progress_bar_id = progress_bar_id
+          flash.notice = I18n.t("models.user_files.uploaded", file_name: @user_file.asset.identifier)
+        else
+          flash.alert = @user_file.errors.full_messages.join("\n")
+        end
       end
-    else
-      render :index, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /user_files/1 or /user_files/1.json
-  def update
-    if @user_file.update(user_file_params)
-      redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.updated")
-    else
-      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /user_files/1 or /user_files/1.json
   def destroy
     @user_file.destroy
-    redirect_to user_files_url, notice: I18n.t("models.user_files.destroyed")
+    redirect_to user_files_url, notice: I18n.t("models.user_files.destroyed", file_name: @user_file.asset.identifier)
   end
 
   private

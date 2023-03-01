@@ -82,7 +82,11 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    brakeman (5.4.1)
     builder (3.2.4)
+    bundler-audit (0.9.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     carrierwave (2.2.3)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -341,6 +345,8 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  brakeman
+  bundler-audit
   carrierwave (~> 2.2)
   debug
   devise (~> 4.9)

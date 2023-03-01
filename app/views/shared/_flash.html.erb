@@ -1,6 +1,10 @@
 <% if notice %>
-  <span class="fixed z-50 border-solid border border-gray-300 p-2 text-center text-emerald-600 rounded-lg left-1/2 -translate-x-1/2 top-8"><%= notice %></span>
+  <p class="min-h-[40px] bg-green-50 text-emerald-600 px-3 py-2 font-medium rounded-lg mt-3 text-center">
+    <%= notice %>
+  </p>
 <% end %>
 <% if alert %>
-  <span class="fixed z-50 border-solid border border-gray-300 p-2 text-center text-red-600 rounded-lg left-1/2 -translate-x-1/2 top-8"><%= alert %></span>
+  <p class="min-h-[40px] bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 text-center">
+    <%= alert %>
+  </p>
 <% end %>

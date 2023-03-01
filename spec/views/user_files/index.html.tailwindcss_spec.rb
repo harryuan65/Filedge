@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe "user_files/index" do
   let(:user) { create(:user) }
   let!(:files) { create_list(:user_file, 3, user: user) }

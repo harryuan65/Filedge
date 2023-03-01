@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe SharingLinksController do
   describe "routing" do
     let(:example_uuid) { "622964a3-2821-4655-8fbf-3623b3b393cb" }

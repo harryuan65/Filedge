@@ -1,5 +1,3 @@
-require "rails_helper"
-
 # rubocop:disable RSpec/ExampleLength
 RSpec.describe "user_files/show" do
   let(:user) { create(:user) }

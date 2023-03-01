@@ -32,3 +32,7 @@ Here is my brief implementation:
 File upload: I want to make "files" a single model `UserFile` that can be referenced by a `SharingLink`, So I use `carrierwave` instead of `active storage` for this case. Both of them supports uploading to local storage and S3.
 
 Database choice: The models I planned to create have clear schemas and relationships, so I prefer using a sql database. Selecting `PostgresSQL` is because I am more familiar with it.
+
+# Part 2 - Implementation
+
+Please refer to this repository.

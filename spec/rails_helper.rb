@@ -35,7 +35,7 @@ RSpec.configure do |config|
   config.fixture_path = ::Rails.root.join("spec/fixtures")
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.before(:each, type: :request) do
-    host! ENV["HOST"] || "http://localhost:3000"
+    host! ENV["HOST"] || "127.0.0.1"
   end
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

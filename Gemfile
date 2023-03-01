@@ -77,6 +77,7 @@ end
 group :test do
   gem "factory_bot_rails"
   gem "rubocop-rspec", require: false
+  gem "shoulda-matchers", "~> 5.0"
 end
 
 gem "devise", "~> 4.9"

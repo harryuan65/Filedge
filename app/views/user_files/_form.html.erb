@@ -1,4 +1,4 @@
-<%= form_with(model: user_file, class: "contents") do |form| %>
+<%= form_with(model: user_file, class: "contents", data: { controller: "upload" }) do |form| %>
   <% if user_file.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(user_file.errors.count, "error") %> prohibited this user_file from being saved:</h2>
@@ -9,8 +9,8 @@
       </ul>
     </div>
   <% end %>
-  <%= form.file_field :asset, class: "invisible_" %>
+  <%= form.file_field :asset, class: "invisible", data: {"upload-target": "file", action: "change->upload#upload"} %>
   <div class="inline">
-    <%= form.submit "+ Upload File", class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer" %>
+    <%= button_tag "+ Upload File", data: { action: "click->upload#openDialog" } , class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer""+ Upload File", class: "cursor-pointer hover:opacity-80 rounded-lg py-3 px-5 bg-accent text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

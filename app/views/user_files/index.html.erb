@@ -21,21 +21,12 @@
     </thead>
     <tbody>
       <% if @user_files.empty? %>
-        <tr class="h-10 border-b border-gray-300">
+        <tr id="user_file_placeholder" class="h-10 border-b border-gray-300">
           <td colspan="5" class="pl-4">Well... Looks like there is nothing here!</td>
         </tr>
       <% end %>
       <% @user_files.each do |file| %>
-        <tr id="<%= file.id %>" class="h-10 border-b border-gray-300" data-controller="sharing-link">
-          <td class="px-4"><%= link_to file.asset.identifier, user_file_path(file), class: "hover:underline" %></td>
-          <td class="px-4"><%= file.file_size %></td>
-          <td class="px-4"><%= file.created_at.strftime("%b %d, %Y") %></td>
-          <td class="px-4"><%= link_to "Download ↓", download_user_file_path(file), class: "hover:underline" %></td>
-          <td class="px-4"><span data-action="click->sharing-link#getLink" class="hover:underline cursor-pointer">Get Link</span></td>
-          <% if params[:controller] == "user_files" %>
-            <td class="px-4"><%= button_to "🗑", user_file_path(file), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "hover:underline" %></td>
-          <% end %>
-        </tr>
+        <%= render partial: 'user_files/user_file', locals: { user_file: file } %>
       <% end %>
     </tbody>
   </table>

@@ -1,8 +1,10 @@
-<div id="<%= dom_id user_file %>">
-  <% if action_name != "show" %>
-    <%= user_file.asset.file.original_filename %>
-    <%= link_to "Show this user file", user_file, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this user file', edit_user_file_path(user_file), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+<tr id="<%= dom_id(user_file) %>" class="h-10 border-b border-gray-300" data-controller="sharing-link" data-id="<%= user_file.id %>">
+  <td class="px-4"><%= link_to user_file.asset.identifier, user_file_path(user_file), class: "hover:underline" %></td>
+  <td class="px-4"><%= user_file.file_size %></td>
+  <td class="px-4"><%= user_file.created_at.strftime("%b %d, %Y") %></td>
+  <td class="px-4"><%= link_to "Download ↓", download_user_file_path(user_file), class: "hover:underline" %></td>
+  <td class="px-4"><span data-action="click->sharing-link#getLink" class="hover:underline cursor-pointer">Get Link</span></td>
+  <% if params[:controller] == "user_files" %>
+    <td class="px-4"><%= button_to "🗑", user_file_path(user_file), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "hover:underline" %></td>
   <% end %>
-</div>
+</tr>

@@ -26,11 +26,15 @@ class UserFilesController < ApplicationController
   end
 
   # POST /user_files or /user_files.json
+  # :reek:U
   def create
-    @user_file = current_user.files.new(asset: user_file_params[:asset])
+    @user_file = current_user.files.new(asset: user_file_params[:asset], file_size: user_file_params[:file_size])
 
     if @user_file.save
-      redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.created")
+      respond_to do |format|
+        format.turbo_stream { @progress_bar_id = progress_bar_id }
+        format.html { redirect_to user_file_url(@user_file), notice: I18n.t("models.user_files.created") }
+      end
     else
       render :index, status: :unprocessable_entity
     end
@@ -61,5 +65,9 @@ class UserFilesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def user_file_params
     params.fetch(:user_file, {})
+  end
+
+  def progress_bar_id
+    params.permit(:progress_bar_id, user_file: {}).fetch(:progress_bar_id)
   end
 end

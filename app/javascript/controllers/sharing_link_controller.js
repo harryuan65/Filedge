@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   userFileId;
   connect() {
-    this.userFileId = this.element.id;
+    this.userFileId = this.element.dataset.id;
   }
 
   async getLink() {

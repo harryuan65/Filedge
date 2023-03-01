@@ -14,6 +14,7 @@ module.exports = {
       },
       colors: {
         accent: '#2AC0CF',
+        progress: '#589afa',
         black: '#222',
         border: '#c2c2c2',
         block: '#FBFBFB',

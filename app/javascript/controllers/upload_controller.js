@@ -32,21 +32,43 @@ export default class extends Controller {
     let newTr = document.createElement('tr');
     newTr.classList.add('h-10', 'border-b', 'border-gray-300');
     let newTd = document.createElement('td');
-    newTd.setAttribute('colspan', 5);
+    newTd.setAttribute('colspan', 6);
+    newTd.classList.add('relative', 'text-center');
 
-    newTr.id = xhrProgressId;
+    let progressText = document.createElement('span');
+    progressText.classList.add('progress-text', 'text-black');
+
+    let progressBar = document.createElement('div');
+    progressBar.classList.add(
+      'progress-bar',
+      'absolute',
+      'w-0',
+      'h-full',
+      'top-0',
+      'bg-progress',
+      '-z-[1]'
+    );
+
+    newTd.appendChild(progressText);
+    newTd.appendChild(progressBar);
+
+    newTr.id = xhrProgressId; // Can be replaced later with uploaded file partial: _user_file using turbo stream.
     newTr.appendChild(newTd);
     tr.parentElement.append(newTr);
   }
 
   // Update progress bar for specified xhr upload.
   #updateProgress(e, xhrId) {
+    let percentage = Math.round((100.0 * e.loaded) / e.total);
+
     let tr = document.getElementById(xhrId);
-    let bar = tr.querySelector('td'); // Get first td
-    let progress = `${e.type}: ${Math.round((100.0 * e.loaded) / e.total)}% (${
-      e.loaded
-    }/${e.total} bytes)`;
-    bar.innerHTML = progress;
+    let td = tr.querySelector('td'); // Get first td
+    let progressText = td.querySelector('.progress-text');
+    let progressBar = td.querySelector('.progress-bar');
+    progressBar.style.width = `${percentage}%`;
+
+    let progress = `${e.type}: ${percentage}% (${e.loaded}/${e.total} bytes)`;
+    progressText.innerHTML = progress;
     console.log(progress);
     console.log(e);
   }
@@ -83,6 +105,6 @@ export default class extends Controller {
   // Utility Functions
   #hidePlaceholderTr() {
     let placeholder = document.getElementById('user_file_placeholder');
-    placeholder.style.display = 'none';
+    if (placeholder) placeholder.style.display = 'none';
   }
 }

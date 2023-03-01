@@ -14,7 +14,7 @@ I would start with this simple structure:
   - We can try solely using a uuid for `user_files#id`. The `user_files#show` will conveniently be our sharing link. Users who know this URL cannot guess the other ids since it is not sequential.
   - However, because `GET user_files/UUID_GIBBERISH` is also exposing sensitive info, I think it's better to hide information when sharing files. So I planned to generate a unique hash and create the link as `/share/UNIQUE_HASH`. I pick `Digest::SHA256` since - It has tons of possible outputs ($2^{256}$). - It is known to be very unlikely to create duplicated keys. Even when the input change only slightly, the output will change drastically.
     For now, this is my function to generate a random link hash.
-    $$\text{digest} = \text{SHA256}(\text{ user\_file\_id })$$
+    $$\text{digest} = \text{SHA256}(\text{ UserFileId })$$
 - Sharing links will expire.
   - Sharing links will have an `expire_at` field.
   - When a user tries to access a link that is expired, he should receive a 404 response.

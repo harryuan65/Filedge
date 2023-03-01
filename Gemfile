@@ -60,6 +60,7 @@ group :development, :test do
   gem "rspec-rails", "5.1.2"
   gem "rubocop-rails"
   gem "solargraph-rails"
+  gem "faker"
 end
 
 group :development do

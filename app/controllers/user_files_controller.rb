@@ -5,6 +5,7 @@ class UserFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user_file, only: %i[show destroy download]
 
+  # The index page of files.
   # GET /user_files
   def index
     files = current_user.files
@@ -12,10 +13,12 @@ class UserFilesController < ApplicationController
     @user_file = files.new
   end
 
+  # The info page of a file.
   # GET /user_files/1
   def show
   end
 
+  # GET /user_files/1/download
   def download
     asset = @user_file.asset
     send_file asset.path, type: asset.content_type
@@ -39,7 +42,7 @@ class UserFilesController < ApplicationController
     end
   end
 
-  # DELETE /user_files/1 or /user_files/1.json
+  # DELETE /user_files/1
   def destroy
     @user_file.destroy
     redirect_to user_files_url, notice: I18n.t("models.user_files.destroyed", file_name: @user_file.asset.identifier)

@@ -64,7 +64,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate"
   gem "bundler-audit"
   gem "brakeman"
   # Use console on exceptions pages [https://github.com/rails/web-console]

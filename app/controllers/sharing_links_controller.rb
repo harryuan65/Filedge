@@ -10,7 +10,7 @@ class SharingLinksController < ApplicationController
   def show
     link = SharingLink.includes(:user_file).find(sharing_link_params[:id])
     if link&.expired?
-      return render status: :not_found
+      return render template: "shared/not_found", status: :not_found
     end
     @user_file = link.user_file
     render template: "user_files/show"

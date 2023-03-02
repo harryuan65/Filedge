@@ -1,5 +1,7 @@
 # Filedge
 
+![](docs/banner.png)
+
 A simple file-sharing application.
 
 # Environment

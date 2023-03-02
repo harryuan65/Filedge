@@ -10,35 +10,23 @@ A simple file-sharing application.
 | ruby            | 3.0.3   |
 | PostgreSQL 14.4 | 1.22.19 |
 
-# Setup - Local R
+# Setup
 
-## 1. Install dependencies
+## Docker compose
 
-```bash
-bin/setup
-```
-
-## 2. Start the application
-
-```
-bin/dev
-```
-
-Then visit `http://localhost:3000` to access the app.
-
-# Setup - Docker
-
-Build services:
+### Build services
 
 ```
 make build
 ```
 
-Start services:
+### Start services
 
 ```
 make dev
 ```
+
+Then visit `http://localhost:3000` to access the app.
 
 If make command is unavailable to you, you can also run these manually:
 
@@ -47,3 +35,21 @@ docker compose build
 docker compose run --rm web bin/rails db:create db:migrate db:seed
 docker compose up
 ```
+
+## Local ruby environment
+
+If you prefer setting up without docker, you can run these commands. Please make sure you have the correct ruby version.
+
+### Install dependencies
+
+```bash
+bin/setup
+```
+
+### Start the application
+
+```
+bin/dev
+```
+
+Then visit `http://localhost:3000` to access the app.

@@ -1,22 +1,19 @@
-FROM ruby:3.0.3-alpine
+FROM ruby:3.0.3
 WORKDIR /app
-
-ARG RUBY_PACKAGES="build-base postgresql-dev tzdata"
-# Fix nokogiri .so version error
-ARG NOKOGIRI_PACKAGES="gcompat"
-RUN apk upgrade \
-  && apk add --update --no-cache $RUBY_PACKAGES $NOKOGIRI_PACKAGES\
-  && gem install bundler
-
 COPY Gemfile Gemfile.lock ./
-RUN bundle install -j 8
+COPY entrypoint.sh ./entrypoint.sh
+RUN gem install bundler:2.3.4
+RUN bundle install
 COPY . .
 
 ENV RAILS_ENV=production
 ENV RAILS_SERVIE_STATIC_FILES=true
 
-EXPOSE 3000
+ARG SECRET_KEY_BASE=assets
+RUN bin/rails assets:clobber && bin/rails assets:precompile
 
-CMD ["bundle","exec","rails", "server", "-p", "3000"]
+# CMD ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0"]
+ENTRYPOINT [ "./entrypoint.sh" ]
+CMD [ "start_service" ]
 
 

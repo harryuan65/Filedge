@@ -1,0 +1,59 @@
+---
+kind: pipeline
+name: Lint
+type: docker
+steps:
+  - name: Lint
+    image: harryuan65/rubocop-docker:1.42.0-amd64
+    environment:
+      BUNDLE_GEMFILE: /linter/Gemfile.linter
+    commands:
+      - bundle exec rubocop -v
+      - bundle exec rubocop
+---
+kind: pipeline
+type: docker
+name: Testing
+steps:
+  - name: Test
+    image: harryuan65/ruby:3.0.3-alpine
+    volumes:
+      - name: gems
+        path: /tmp/gems
+    environment:
+      RAILS_ENV: test
+      RAKE_ENV: test
+      REDIS_URL: redis://redis:6379/0
+      PG_HOST: database
+      PG_USERNAME: postgres
+      PG_PASSWORD: postgres
+    commands:
+      - bundle config set --local without 'production,development'
+      - |
+        if [ -d /tmp/gems ]; then
+          if [ -d /tmp/gems/ruby ]; then
+            echo -e "\e[32mUsing installed gems...\e[0m"
+          fi
+          bundle config set --local path /tmp/gems
+          bundle install
+        else
+          bundle config set --local path vendor/bundle
+          bundle install --jobs 4
+        fi
+      - bundle exec rails db:create db:schema:load
+      - bundle exec rspec
+    depends_on:
+      - database
+      - redis
+services:
+  - name: database
+    image: postgres:14.4-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  - name: redis
+    image: redis:7.0.4-alpine
+volumes:
+  - name: gems
+    host:
+      path: /tmp/gems

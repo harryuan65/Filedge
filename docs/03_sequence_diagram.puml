@@ -1,0 +1,28 @@
+@startuml FileSharing
+actor User
+group A user can upload
+  User -> Service: Upload file b1
+  activate Service
+  Service -> Service: Save to storage
+  Service -> Service: Create user's file record f1 belonging to b1
+  deactivate Service
+  Service-> User: OK
+end
+group A user can share files
+  User -> Service: Share f1
+  activate Service
+  group * Sharing links should be hard to guess
+  Service -> Service: Generate a hash link hard enough to guess
+  Service -> Service: Create a share link record\nbelonging to f1
+  end
+  deactivate Service
+end
+group *Sharing links will expire
+  User -> Service: Access sharing link
+alt link.expired?
+  Service -> User: 404
+else
+  Service -> Service: Get user_file from link digest
+  Service -> User: render UserFile#show
+end
+@enduml

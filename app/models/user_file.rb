@@ -19,7 +19,7 @@ class UserFile < ApplicationRecord
 
   validates :asset, presence: true
 
-  after_create :set_file_size
+  before_commit :set_file_size, on: %i[create]
 
   def set_file_size
     self.file_size = asset.size

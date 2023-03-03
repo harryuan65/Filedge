@@ -28,7 +28,7 @@ class UserFilesController < ApplicationController
   # Create a UserFile.
   # This is called from stimulus upload_controller after the file field is changed.
   def create
-    @user_file = current_user.files.new(asset: user_file_params[:asset], file_size: user_file_params[:file_size])
+    @user_file = current_user.files.new(asset: user_file_params[:asset])
 
     respond_to do |format|
       format.turbo_stream do

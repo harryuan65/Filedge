@@ -6,11 +6,11 @@ A simple file-sharing application.
 
 # Environment
 
-| env             | version |
-| --------------- | ------- |
-| rails           | 7.0.4.2 |
-| ruby            | 3.0.3   |
-| PostgreSQL 14.4 | 1.22.19 |
+| env        | version |
+| ---------- | ------- |
+| rails      | 7.0.4.2 |
+| ruby       | 3.0.3   |
+| PostgreSQL | 14.4    |
 
 # Setup
 

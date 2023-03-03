@@ -3,7 +3,11 @@ services:
   web:
     build: .
     volumes:
-      - .:/app
+      - ./app:/app/app
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./db:/app/db
+      - ./spec:/app/spec
       - bundle:/usr/local/bundle
     environment:
       RAILS_ENV: development

@@ -10,15 +10,12 @@ services:
       PG_HOST: postgres
       PG_USERNAME: postgres
       PG_PASSWORD: postgres
-      REDIS_URL: redis://redis:6379/1
     ports:
       - "3000:3000"
     links:
       - postgres
-      - redis
     depends_on:
       - postgres
-      - redis
   postgres:
     image: postgres:14.4-alpine
     ports:
@@ -28,10 +25,7 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
-  redis:
-    image: redis:7.0.4-alpine
 
 volumes:
   pg_data:
-  redis_data:
   bundle:

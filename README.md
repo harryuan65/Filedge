@@ -19,14 +19,16 @@ A simple file-sharing application.
 ### Build services
 
 ```
-make build
+bin/rails setup
 ```
 
 ### Start services
 
 ```
-make dev
+bin/rails up
 ```
+
+see tasks/docker/dev.rake for all dev tasks.
 
 Then visit `http://localhost:3000` to access the app.
 

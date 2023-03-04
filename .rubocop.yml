@@ -18,3 +18,7 @@ Style/RedundantReturn:
 
 RSpec/FilePath:
   Enabled: false # bug
+
+Rails/RakeEnvironment:
+  Exclude:
+    - lib/tasks/docker/*.rake

@@ -19,14 +19,7 @@ class SharingLinksController < ApplicationController
   # Create a sharing link for a user file.
   # POST user_file_sharing_links_path /user_files/:user_file_id/share
   def create
-    link = SharingLink.find_by(user_file_id: @user_file.id)
-
-    new_expire_at = 30.days.from_now
-    if link
-      link.update(expire_at: new_expire_at) if link.expired?
-    else
-      link = SharingLink.create!(user_file: @user_file, expire_at: new_expire_at)
-    end
+    link = GenerateSharingLink.call(@user_file)
     render plain: sharing_link_url(link)
   end
 

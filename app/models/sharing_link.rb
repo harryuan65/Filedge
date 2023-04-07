@@ -13,11 +13,6 @@
 #
 class SharingLink < ApplicationRecord
   belongs_to :user_file
-  before_create :generate_digest
-
-  def generate_digest
-    self.digest = Digest::SHA256.hexdigest(user_file_id)
-  end
 
   def expired?
     expire_at < Time.zone.now

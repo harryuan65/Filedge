@@ -20,13 +20,14 @@ class UserFilesController < ApplicationController
 
   # GET /user_files/1/download
   def download
-    #   if current_user.id == @user_file.user_id
-    #
-    #   else
-    #
-    #   end
-    asset = @user_file.asset
-    send_file asset.path, type: asset.content_type
+    link = @user_file.sharing_link
+    if current_user.id == @user_file.user_id || link && !link.expired?
+      # Future: access list
+      asset = @user_file.asset
+      return send_file asset.path, type: asset.content_type
+    end
+
+    head :forbidden
   end
 
   # POST /user_files [Turbo Stream]
@@ -49,6 +50,8 @@ class UserFilesController < ApplicationController
 
   # DELETE /user_files/1
   def destroy
+    return head :not_found if @user_file.user_id != current_user.id
+
     @user_file.destroy
     redirect_to user_files_url, notice: I18n.t("models.user_files.destroyed", file_name: @user_file.asset.identifier)
   end
@@ -57,7 +60,7 @@ class UserFilesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user_file
-    @user_file = current_user.files.find(params[:id])
+    @user_file = UserFile.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

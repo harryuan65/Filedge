@@ -22,3 +22,9 @@ RSpec/FilePath:
 Rails/RakeEnvironment:
   Exclude:
     - lib/tasks/docker/*.rake
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
+
+RSpec/NestedGroups:
+  MaxNesting: 4

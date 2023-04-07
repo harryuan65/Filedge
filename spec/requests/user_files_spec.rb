@@ -52,21 +52,54 @@ RSpec.describe "/user_files" do
   end
 
   describe "GET /download" do
-    subject(:download_request) do
-      get download_user_file_url(user_file)
+    context "when file's sharing_link expired" do
+      let(:user_file_with_expired_link) { create(:user_file, :with_expired_link, user_id: user.id) }
+
+      context "when the owner is performing the download" do
+        before do
+          sign_in(user)
+          get download_user_file_url(user_file_with_expired_link)
+        end
+
+        it("renders a successful response") { expect(response).to be_successful }
+        it("sends the file") { expect(response.content_type).to eq(user_file_with_expired_link.asset.content_type) }
+      end
+
+      context "when other users are performing the download" do
+        before do
+          sign_in(user2)
+          get download_user_file_url(user_file_with_expired_link)
+        end
+
+        it("renders a forbidden response to other users") { expect(response).to have_http_status(:forbidden) }
+
+        it("sends nothing to other users") { expect(response.body).to be_empty }
+      end
     end
 
-    before do
-      sign_in(user)
-      download_request
-    end
+    context "when file's sharing_link is valid" do
+      let(:user_file_with_valid_link) { create(:user_file, :with_valid_link, user_id: user.id) }
 
-    it "renders a successful response" do
-      expect(response).to be_successful
-    end
+      context "when the owner is performing the download" do
+        before do
+          sign_in(user)
+          get download_user_file_url(user_file_with_valid_link)
+        end
 
-    it "downloads the file" do
-      expect(response.content_type).to eq(user_file.asset.content_type)
+        it("renders a successful response") { expect(response).to have_http_status(:ok) }
+        it("sends the file") { expect(response.content_type).to eq(user_file_with_valid_link.asset.content_type) }
+      end
+
+      # Future: access list instead of allowing all
+      context "when other users are performing the download" do
+        before do
+          sign_in(user2)
+          get download_user_file_url(user_file_with_valid_link)
+        end
+
+        it("renders a successful response") { expect(response).to have_http_status(:ok) }
+        it("sends the file") { expect(response.content_type).to eq(user_file_with_valid_link.asset.content_type) }
+      end
     end
   end
 

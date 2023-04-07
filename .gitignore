@@ -34,3 +34,5 @@
 !/app/assets/builds/.keep
 public/uploads
 dev
+
+/config/credentials/production.key

@@ -1,5 +1,7 @@
 # Filedge
 
+[Demo](https://filedge.onrender.com/)
+
 ![](docs/banner.png)
 
 A simple file-sharing application.

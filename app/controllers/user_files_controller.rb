@@ -20,6 +20,11 @@ class UserFilesController < ApplicationController
 
   # GET /user_files/1/download
   def download
+    #   if current_user.id == @user_file.user_id
+    #
+    #   else
+    #
+    #   end
     asset = @user_file.asset
     send_file asset.path, type: asset.content_type
   end

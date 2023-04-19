@@ -1,5 +1,8 @@
 # Filedge
 
+> **Warning**
+> When awaking the demo service from sleeping state, the disk will be cleared. If you see "You are being redirected" means the file is removed by render.com.
+
 [Demo](https://filedge.onrender.com/)
 
 ![](docs/banner.png)
